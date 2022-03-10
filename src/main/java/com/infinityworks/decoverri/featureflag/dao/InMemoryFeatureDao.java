@@ -23,4 +23,9 @@ public class InMemoryFeatureDao implements FeatureDao {
     public List<Feature> getFeatures() {
         return List.copyOf(features);
     }
+
+    @Override
+    public void enableFeature(int featureId) {
+        features.get(featureId).setEnabled(true);
+    }
 }

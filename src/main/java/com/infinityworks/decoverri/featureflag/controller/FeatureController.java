@@ -1,7 +1,7 @@
 package com.infinityworks.decoverri.featureflag.controller;
 
-import com.infinityworks.decoverri.featureflag.model.dto.FeatureResponse;
 import com.infinityworks.decoverri.featureflag.model.dto.FeatureRequest;
+import com.infinityworks.decoverri.featureflag.model.dto.FeatureResponse;
 import com.infinityworks.decoverri.featureflag.service.FeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +23,7 @@ public class FeatureController {
     public FeatureResponse createFeature(@RequestHeader(required = false) String userType, @RequestBody FeatureRequest request){
         if(userType != null && userType.equals("admin")){
             featureService.createFeature(request.getFeatureName());
-            var response = new FeatureResponse();
-            response.setFeatures(featureService.getFeatures());
-            return response;
+            return createSuccessResponse();
         }
         else {
             throw new ResponseStatusException(
@@ -33,15 +31,27 @@ public class FeatureController {
         }
     }
 
-    //TODO: add those functionalities
-//    @PutMapping ("/feature/{featureId}/enable")
-//    public void enableFeature(int featureId){
-//        featureService.enableFeature(featureId);
-//    }
-//
+    @PutMapping ("/feature/{featureId}/enable")
+    public FeatureResponse enableFeature(@RequestHeader(required = false) String userType, @PathVariable Integer featureId){
+        if(userType != null && userType.equals("admin")){
+            featureService.enableFeature(featureId);
+            return createSuccessResponse();
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "User must be admin");
+        }
+    }
+
 //    @PutMapping ("/feature/{featureId}/disable")
 //    public void disableFeature(int featureId){
 //        featureService.disableFeature(featureId);
 //    }
+
+    private FeatureResponse createSuccessResponse() {
+        var response = new FeatureResponse();
+        response.setFeatures(featureService.getFeatures());
+        return response;
+    }
 
 }

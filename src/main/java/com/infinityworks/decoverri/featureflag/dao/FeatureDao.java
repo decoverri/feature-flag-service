@@ -8,4 +8,6 @@ public interface FeatureDao {
     void save(Feature feature);
 
     List<Feature> getFeatures();
+
+    void enableFeature(int featureId);
 }

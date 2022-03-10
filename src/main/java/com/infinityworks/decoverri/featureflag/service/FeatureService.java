@@ -28,4 +28,8 @@ public class FeatureService {
     public List<Feature> getFeatures() {
         return featureDao.getFeatures();
     }
+
+    public void enableFeature(int featureId) {
+        featureDao.enableFeature(featureId);
+    }
 }
