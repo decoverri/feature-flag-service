@@ -29,11 +29,15 @@ public class FeatureService {
         return featureDao.getFeatures();
     }
 
-    public void enableFeature(int featureId) {
-        featureDao.enableFeature(featureId);
+    public void enableFeature(int id) {
+        var feature = featureDao.getFeature(id);
+        feature.setEnabled(true);
+        featureDao.update(id, feature);
     }
 
-    public void disableFeature(Integer featureId) {
-        featureDao.disableFeature(featureId);
+    public void disableFeature(int id) {
+        var feature = featureDao.getFeature(id);
+        feature.setEnabled(false);
+        featureDao.update(id, feature);
     }
 }

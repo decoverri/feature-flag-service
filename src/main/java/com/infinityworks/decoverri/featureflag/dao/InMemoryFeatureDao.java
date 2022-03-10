@@ -25,12 +25,18 @@ public class InMemoryFeatureDao implements FeatureDao {
     }
 
     @Override
-    public void enableFeature(int featureId) {
-        features.get(featureId).setEnabled(true);
+    public Feature getFeature(int id) {
+        var feature = features.get(id);
+        return Feature.builder()
+                .id(feature.getId())
+                .name(feature.getName())
+                .enabled(feature.isEnabled())
+                .build();
     }
 
     @Override
-    public void disableFeature(Integer featureId) {
-        features.get(featureId).setEnabled(false);
+    public void update(int id, Feature feature) {
+        features.set(id, feature);
     }
+
 }

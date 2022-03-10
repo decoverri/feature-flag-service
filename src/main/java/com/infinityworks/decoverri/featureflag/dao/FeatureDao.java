@@ -9,7 +9,7 @@ public interface FeatureDao {
 
     List<Feature> getFeatures();
 
-    void enableFeature(int featureId);
+    Feature getFeature(int id);
 
-    void disableFeature(Integer featureId);
+    void update(int id, Feature feature);
 }
