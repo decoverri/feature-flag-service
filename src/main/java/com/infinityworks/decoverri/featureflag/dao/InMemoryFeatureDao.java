@@ -15,6 +15,7 @@ public class InMemoryFeatureDao implements FeatureDao {
 
     @Override
     public void save(Feature feature) {
+        feature.setId(features.size());
         features.add(feature);
     }
 

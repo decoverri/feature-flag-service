@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Feature {
+    int id;
     String name;
     boolean enabled;
 }
