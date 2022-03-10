@@ -43,10 +43,17 @@ public class FeatureController {
         }
     }
 
-//    @PutMapping ("/feature/{featureId}/disable")
-//    public void disableFeature(int featureId){
-//        featureService.disableFeature(featureId);
-//    }
+    @PutMapping ("/feature/{featureId}/disable")
+    public FeatureResponse disableFeature(@RequestHeader(required = false) String userType, @PathVariable Integer featureId){
+        if(userType != null && userType.equals("admin")){
+            featureService.disableFeature(featureId);
+            return createSuccessResponse();
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "User must be admin");
+        }
+    }
 
     private FeatureResponse createSuccessResponse() {
         var response = new FeatureResponse();

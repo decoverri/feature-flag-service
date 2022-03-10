@@ -10,4 +10,6 @@ public interface FeatureDao {
     List<Feature> getFeatures();
 
     void enableFeature(int featureId);
+
+    void disableFeature(Integer featureId);
 }

@@ -32,4 +32,8 @@ public class FeatureService {
     public void enableFeature(int featureId) {
         featureDao.enableFeature(featureId);
     }
+
+    public void disableFeature(Integer featureId) {
+        featureDao.disableFeature(featureId);
+    }
 }
