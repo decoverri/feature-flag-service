@@ -4,7 +4,9 @@ import com.infinityworks.decoverri.featureflag.model.dto.FeatureResponse;
 import com.infinityworks.decoverri.featureflag.model.dto.FeatureRequest;
 import com.infinityworks.decoverri.featureflag.service.FeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/v1")
@@ -18,11 +20,17 @@ public class FeatureController {
     }
 
     @PostMapping("/feature")
-    public FeatureResponse createFeature(@RequestBody FeatureRequest request){
-        featureService.createFeature(request.getFeatureName());
-        var response = new FeatureResponse();
-        response.setFeatures(featureService.getFeatures());
-        return response;
+    public FeatureResponse createFeature(@RequestHeader(required = false) String userType, @RequestBody FeatureRequest request){
+        if(userType != null && userType.equals("admin")){
+            featureService.createFeature(request.getFeatureName());
+            var response = new FeatureResponse();
+            response.setFeatures(featureService.getFeatures());
+            return response;
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "User must be admin");
+        }
     }
 
     //TODO: add those functionalities
