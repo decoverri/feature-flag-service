@@ -5,8 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -15,5 +14,5 @@ import java.util.List;
 public class User {
     private int id;
     private String name;
-    private List<Integer> enabledFeaturesIds;
+    private Set<Integer> enabledFeaturesIds;
 }

@@ -4,20 +4,21 @@ import com.infinityworks.decoverri.featureflag.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.context.annotation.ApplicationScope;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 @ApplicationScope
 public class InMemoryUserDao implements UserDao{
     
     private final List<User> userList = List.of(
-            User.builder().id(0).name("Deco").enabledFeaturesIds(new ArrayList<>()).build(),
-            User.builder().id(1).name("Chris").enabledFeaturesIds(new ArrayList<>()).build()
+            User.builder().id(0).name("Deco").enabledFeaturesIds(new HashSet<>()).build(),
+            User.builder().id(1).name("Chris").enabledFeaturesIds(new HashSet<>()).build()
     );
 
     @Override
-    public List<Integer> getEnabledFeaturesIdsForUser(int userId) {
+    public Set<Integer> getEnabledFeaturesIdsForUser(int userId) {
         return userList.get(userId).getEnabledFeaturesIds();
     }
 

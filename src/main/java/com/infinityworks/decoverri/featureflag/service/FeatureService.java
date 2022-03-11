@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FeatureService {
@@ -47,7 +48,7 @@ public class FeatureService {
 
     public List<Feature> getEnabledFeaturesForUser(int userId) {
         var userEnabledFeaturesIds = userDao.getEnabledFeaturesIdsForUser(userId);
-        return featureDao.getFeatureByIdList(userEnabledFeaturesIds);
+        return featureDao.getFeatureByIdList(userEnabledFeaturesIds.stream().collect(Collectors.toList()));
     }
 
     public void enableFeatureForUser(Integer featureId, Integer userId) {
