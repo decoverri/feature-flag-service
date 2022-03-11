@@ -47,4 +47,9 @@ public class InMemoryFeatureDao implements FeatureDao {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Feature> getEnabledFeatures() {
+        return features.stream().filter(feature -> feature.isEnabledToAllUsers()).collect(Collectors.toList());
+    }
+
 }

@@ -7,6 +7,7 @@ import com.infinityworks.decoverri.featureflag.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,5 +62,9 @@ public class FeatureService {
 
     public List<User> getUsers() {
         return userDao.getUsers();
+    }
+
+    public List<Feature> getEnabledFeaturesForAll() {
+        return featureDao.getEnabledFeatures();
     }
 }

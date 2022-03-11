@@ -1,11 +1,14 @@
 package com.infinityworks.decoverri.featureflag.controller;
 
+import com.infinityworks.decoverri.featureflag.model.Feature;
 import com.infinityworks.decoverri.featureflag.model.dto.FeatureRequest;
 import com.infinityworks.decoverri.featureflag.model.dto.FeatureResponse;
 import com.infinityworks.decoverri.featureflag.model.dto.UserResponse;
 import com.infinityworks.decoverri.featureflag.service.FeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/v1")
@@ -51,7 +54,10 @@ public class FeatureController {
     @GetMapping("/feature")
     public FeatureResponse getEnabledFeatures(@RequestHeader Integer userId) {
         var featureResponse = new FeatureResponse();
-        featureResponse.setFeatures(featureService.getEnabledFeaturesForUser(userId));
+        var enabledFeatures = new ArrayList<Feature>();
+        enabledFeatures.addAll(featureService.getEnabledFeaturesForUser(userId));
+        enabledFeatures.addAll(featureService.getEnabledFeaturesForAll());
+        featureResponse.setFeatures(enabledFeatures);
         return featureResponse;
     }
 

@@ -14,4 +14,6 @@ public interface FeatureDao {
     void update(int id, Feature feature);
 
     List<Feature> getFeatureByIdList(List<Integer> userEnabledFeaturesIds);
+
+    List<Feature> getEnabledFeatures();
 }
