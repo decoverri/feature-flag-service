@@ -3,6 +3,7 @@ package com.infinityworks.decoverri.featureflag.service;
 import com.infinityworks.decoverri.featureflag.dao.FeatureDao;
 import com.infinityworks.decoverri.featureflag.dao.UserDao;
 import com.infinityworks.decoverri.featureflag.model.Feature;
+import com.infinityworks.decoverri.featureflag.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,17 @@ public class FeatureService {
     public List<Feature> getEnabledFeaturesForUser(int userId) {
         var userEnabledFeaturesIds = userDao.getEnabledFeaturesIdsForUser(userId);
         return featureDao.getFeatureByIdList(userEnabledFeaturesIds);
+    }
+
+    public void enableFeatureForUser(Integer featureId, Integer userId) {
+        userDao.addFeatureIdForUser(featureId, userId);
+    }
+
+    public void disableFeatureForUser(Integer featureId, Integer userId) {
+        userDao.removeFeatureIdForUser(featureId, userId);
+    }
+
+    public List<User> getUsers() {
+        return userDao.getUsers();
     }
 }

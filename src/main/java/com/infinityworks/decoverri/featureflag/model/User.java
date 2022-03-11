@@ -15,5 +15,5 @@ import java.util.List;
 public class User {
     private int id;
     private String name;
-    private List<Integer> enabledFeaturesIds = new ArrayList<>();
+    private List<Integer> enabledFeaturesIds;
 }
