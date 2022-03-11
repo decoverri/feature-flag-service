@@ -20,40 +20,28 @@ public class FeatureController {
     }
 
     @PostMapping("/feature")
-    public FeatureResponse createFeature(@RequestHeader(required = false) String userType, @RequestBody FeatureRequest request){
-        if(userType != null && userType.equals("admin")){
-            featureService.createFeature(request.getFeatureName());
-            return createSuccessResponse();
-        }
-        else {
-            throw new ResponseStatusException(
-                    HttpStatus.UNAUTHORIZED, "User must be admin");
-        }
+    public FeatureResponse createFeature(@RequestBody FeatureRequest request){
+        featureService.createFeature(request.getFeatureName());
+        return createSuccessResponse();
     }
 
     @PutMapping ("/feature/{featureId}/enable")
-    public FeatureResponse enableFeature(@RequestHeader(required = false) String userType, @PathVariable Integer featureId){
-        if(userType != null && userType.equals("admin")){
-            featureService.enableFeature(featureId);
-            return createSuccessResponse();
-        }
-        else {
-            throw new ResponseStatusException(
-                    HttpStatus.UNAUTHORIZED, "User must be admin");
-        }
+    public FeatureResponse enableFeature(@PathVariable Integer featureId){
+        featureService.enableFeature(featureId);
+        return createSuccessResponse();
     }
 
     @PutMapping ("/feature/{featureId}/disable")
-    public FeatureResponse disableFeature(@RequestHeader(required = false) String userType, @PathVariable Integer featureId){
-        if(userType != null && userType.equals("admin")){
-            featureService.disableFeature(featureId);
-            return createSuccessResponse();
-        }
-        else {
-            throw new ResponseStatusException(
-                    HttpStatus.UNAUTHORIZED, "User must be admin");
-        }
+    public FeatureResponse disableFeature(@PathVariable Integer featureId){
+        featureService.disableFeature(featureId);
+        return createSuccessResponse();
     }
+
+//    @GetMapping("/feature")
+//    public FeatureResponse getEnabledFeatures() {
+//        featureService.enableFeature(featureId);
+//        return createSuccessResponse();
+//    }
 
     private FeatureResponse createSuccessResponse() {
         var response = new FeatureResponse();
