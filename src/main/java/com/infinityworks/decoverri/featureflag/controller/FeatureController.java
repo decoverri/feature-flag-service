@@ -4,9 +4,7 @@ import com.infinityworks.decoverri.featureflag.model.dto.FeatureRequest;
 import com.infinityworks.decoverri.featureflag.model.dto.FeatureResponse;
 import com.infinityworks.decoverri.featureflag.service.FeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/v1")
@@ -37,11 +35,12 @@ public class FeatureController {
         return createSuccessResponse();
     }
 
-//    @GetMapping("/feature")
-//    public FeatureResponse getEnabledFeatures() {
-//        featureService.enableFeature(featureId);
-//        return createSuccessResponse();
-//    }
+    @GetMapping("/feature")
+    public FeatureResponse getEnabledFeatures(@RequestHeader Integer userId) {
+        var featureResponse = new FeatureResponse();
+        featureResponse.setFeatures(featureService.getEnabledFeaturesForUser(userId));
+        return featureResponse;
+    }
 
     private FeatureResponse createSuccessResponse() {
         var response = new FeatureResponse();

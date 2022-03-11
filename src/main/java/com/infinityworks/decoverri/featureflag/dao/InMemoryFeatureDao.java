@@ -6,6 +6,7 @@ import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @ApplicationScope
@@ -37,6 +38,13 @@ public class InMemoryFeatureDao implements FeatureDao {
     @Override
     public void update(int id, Feature feature) {
         features.set(id, feature);
+    }
+
+    @Override
+    public List<Feature> getFeatureByIdList(List<Integer> userEnabledFeaturesIds) {
+        return features.stream()
+                .filter(feature -> userEnabledFeaturesIds.contains(feature.getId()))
+                .collect(Collectors.toList());
     }
 
 }

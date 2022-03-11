@@ -1,6 +1,7 @@
 package com.infinityworks.decoverri.featureflag.service;
 
 import com.infinityworks.decoverri.featureflag.dao.FeatureDao;
+import com.infinityworks.decoverri.featureflag.dao.UserDao;
 import com.infinityworks.decoverri.featureflag.model.Feature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,12 @@ import java.util.List;
 public class FeatureService {
 
     private final FeatureDao featureDao;
+    private final UserDao userDao;
 
     @Autowired
-    public FeatureService(FeatureDao featureDao){
+    public FeatureService(FeatureDao featureDao, UserDao userDao){
         this.featureDao = featureDao;
+        this.userDao = userDao;
     }
 
     public void createFeature(String name) {
@@ -39,5 +42,10 @@ public class FeatureService {
         var feature = featureDao.getFeature(id);
         feature.setEnabled(false);
         featureDao.update(id, feature);
+    }
+
+    public List<Feature> getEnabledFeaturesForUser(int userId) {
+        var userEnabledFeaturesIds = userDao.getEnabledFeaturesIdsForUser(userId);
+        return featureDao.getFeatureByIdList(userEnabledFeaturesIds);
     }
 }
