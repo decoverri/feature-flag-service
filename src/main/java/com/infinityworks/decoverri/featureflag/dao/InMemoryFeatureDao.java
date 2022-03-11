@@ -31,7 +31,7 @@ public class InMemoryFeatureDao implements FeatureDao {
         return Feature.builder()
                 .id(feature.getId())
                 .name(feature.getName())
-                .enabled(feature.isEnabled())
+                .enabledToAllUsers(feature.isEnabledToAllUsers())
                 .build();
     }
 

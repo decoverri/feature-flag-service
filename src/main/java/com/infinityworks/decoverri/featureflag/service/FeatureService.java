@@ -25,7 +25,7 @@ public class FeatureService {
     public void createFeature(String name) {
         Feature feature = Feature.builder()
                 .name(name)
-                .enabled(false)
+                .enabledToAllUsers(false)
                 .build();
         featureDao.save(feature);
     }
@@ -36,13 +36,13 @@ public class FeatureService {
 
     public void enableFeature(int id) {
         var feature = featureDao.getFeature(id);
-        feature.setEnabled(true);
+        feature.setEnabledToAllUsers(true);
         featureDao.update(id, feature);
     }
 
     public void disableFeature(int id) {
         var feature = featureDao.getFeature(id);
-        feature.setEnabled(false);
+        feature.setEnabledToAllUsers(false);
         featureDao.update(id, feature);
     }
 
